@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Listado de Ventas</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      max-width: 350px;
+      width: 100%;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .field {
+      margin-bottom: 8px;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #222;
+    }
+
+    .value {
+      color: #555;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #777;
+      margin-top: 40px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      background: #2563eb;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #1e40af;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="/" class="logo">GRUPO PS</a>
+        <nav class="nav">
+          <a href="formVenta.html">Publicar</a>
+          <a href="form.html">Iniciar Sesión</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <h1>Listado de Ventas</h1>
+
+  <div id="ventas-container" class="grid"> Ventas container </div>
+  <div id="no-data" class="no-data" style="display:none;">No hay ventas registradas.</div>
+
+  <script>
+    async function cargarVentas() {
+      try {
+        const res = await fetch('/api/ventas');
+        const data = await res.json();
+
+        const cont = document.getElementById('ventas-container');
+        const noData = document.getElementById('no-data');
+        cont.innerHTML = '';
+// cuando no hay productos registrados 
+        if (!res.ok || data.length === 0) {
+          noData.style.display = 'block';
+          return;
+        }
+// recorre la data que devolvio la fetch de la ruta /api/ventas y crea las tarjetas de productos
+        data.forEach(v => {
+          const card = document.createElement('div');
+          card.classList.add('card');
+
+          // Si la imagen existe, usarla; de lo contrario, mostrar un placeholder
+          const imgSrc = v.imagen ? v.imagen : 'https://placehold.co/600x400';
+
+          card.innerHTML = `
+            <img src="${imgSrc}" alt="Imagen del producto">
+            <div class="field"><span class="label">ID:</span> <span class="value">${v.id}</span></div>
+            <div class="field"><span class="label">Título:</span> <span class="value">${v.titulo}</span></div>
+            <div class="field"><span class="label">Descripción:</span> <span class="value">${v.descripcion}</span></div>
+            <div class="field"><span class="label">Precio:</span> <span class="value">$${v.precio}</span></div>
+            <div class="field"><span class="label">Categoría:</span> <span class="value">${v.categoria}</span></div>
+            <div class="field"><span class="label">Ubicación:</span> <span class="value">${v.ubicacion}</span></div>
+            <div class="field"><span class="label">Creado:</span> <span class="value">${v.created_at ?? ''}</span></div>
+            <a href="/detail?type=venta&id=${v.id}" class="btn">Ver detalle</a>
+          `;
+          cont.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Error al cargar ventas:', err);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', cargarVentas);
+  </script>
+</body>
+</html>

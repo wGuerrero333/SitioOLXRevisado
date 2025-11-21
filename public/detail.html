@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Detalle</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      
+      background-color: rgb(29, 24, 24);
+      color: white;
+      padding: 15px 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 22px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 30px 0;
+      color: rgb(8, 79, 211);
+    }
+
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .field {
+      margin-bottom: 16px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 10px;
+    }
+
+    .label {
+      font-weight: 700;
+      color: #374151;
+      text-transform: uppercase;
+      font-size: 0.9em;
+      margin-bottom: 4px;
+    }
+
+    .value {
+      color: #1f2937;
+      font-size: 1.05em;
+      margin-top: 4px;
+    }
+
+    /* Etiquetas de color (badge) */
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9em;
+    }
+
+    .badge.admin { background: #fee2e2; color: #d0f01d; }
+    .badge.member { background: #dcfce7; color: #15803d; }
+    .badge.user { background: #dbeafe; color: #1d4ed8; }
+
+    img.detail-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
+      margin-top: 40px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <header>
+    <a href="/" class="logo">GRUPO PS</a>
+  </header>
+
+  <h1 id="title">Detalle</h1>
+
+
+  <div class="card" id="card">
+    <div id="content">Cargando...</div>
+<!-- boton de editar -->
+
+  </div>
+<div style="text-align:center; margin-bottom:20px;">
+  <a id="editBtn" 
+     href="#" 
+     style="
+       background:#2563eb; 
+       color:white; 
+       padding:10px 20px; 
+       border-radius:8px; 
+       text-decoration:none; 
+       font-weight:600;
+       display:inline-block;
+       box-shadow:0 2px 6px rgba(0,0,0,0.2);
+     ">
+     ✏️ Editar
+  </a>
+</div>
+
+  <footer>
+    &copy; 2025 GRUPO PS — Todos los derechos reservados.
+  </footer>
+
+  <script>
+    async function getParams() {
+      const params = new URLSearchParams(window.location.search);
+      return { type: params.get('type'), id: params.get('id') };
+    }
+// plantilla para renderizar cada campo
+
+    function renderField(label, value) {
+      return `
+        <div class="field">
+          <div class="label">${label}</div>
+          <div class="value">${value ?? ''}</div>
+        </div>`;
+    }
+// esta función se ejecuta inmediatamente para cargar los datos según los parámetros type e id
+    (async () => {
+      const { type, id } = await getParams();
+
+
+
+      if (!type || !id) {
+        document.getElementById('content').innerHTML = '<div>Parámetros inválidos</div>';
+        return;
+      }
+      // esto le agrega el enlace de edición dinámicamente a el botón de editar
+      document.getElementById("editBtn").href = `/edit.html?type=${type}&id=${id}`;
+// intentar obtener y mostrar los datos según el tipo
+      try {
+        let res, data;
+
+        // si  type=suscripción hace esto 
+        if (type === 'suscripcion') {
+          res = await fetch(`/api/suscripciones/${id}`);
+          data = await res.json();
+          if (!res.ok) throw data;
+// cambiar el título de la página
+          document.getElementById('title').innerText = 'Detalle Suscripción: ' + id;
+
+          // Mostrar rol con etiqueta de color
+          let roleHTML = '<span class="badge user">Usuario</span>';
+          // si rol administrador entonces cambiar el html
+          if (data.role === 'administrador') roleHTML = '<span class="badge admin">Administrador</span>';
+          if (data.role === 'miembro') roleHTML = '<span class="badge member">Miembro</span>';
+// construir el html con los campos de la suscripción
+          const html = [
+            renderField('ID', data.id),
+            renderField('Nombre', data.nombre),
+            renderField('Email', data.email),
+            renderField('Mensaje', data.mensaje),
+            renderField('Rol', roleHTML),
+            renderField('Creado', data.created_at)
+          ].join('');
+// insertar el html en el contenedor
+          document.getElementById('content').innerHTML = html;
+        }
+
+        //  si por el contrario el type=venta hace lo mismo pero con la data de venta
+        else if (type === 'venta') {
+          res = await fetch(`/api/ventas/${id}`);
+          data = await res.json();
+          if (!res.ok) throw data;
+
+          document.getElementById('title').innerText = 'Detalle Venta: ' + id;
+// si hay imagen mostrarla, si no mostrar texto indicando que no hay imagen
+          const imgHTML = data.imagen
+            ? `<img src="${data.imagen}" alt="Imagen del producto NO Dosponible" class="detail-img">`
+            : '<span style="color:#9ca3af;">Sin imagen disponible</span>';
+
+          const html = [
+            renderField('ID', data.id),
+            renderField('Título', data.titulo),
+            renderField('Descripción', data.descripcion),
+            renderField('Precio', '$' + data.precio),
+            renderField('Categoría', data.categoria),
+            renderField('Ubicación', data.ubicacion),
+            renderField('Imagen', imgHTML),
+            renderField('Creado', data.created_at)
+          ].join('');
+
+          document.getElementById('content').innerHTML = html;
+        }
+
+        else {
+          document.getElementById('content').innerHTML = '<div>Tipo desconocido</div>';
+        }
+
+      } catch (err) {
+        console.error(err);
+        const msg = (err && err.error) ? err.error : 'Error cargando datos';
+        document.getElementById('content').innerHTML = `<div>${msg}</div>`;
+      }
+    })();
+  </script>
+</body>
+</html>

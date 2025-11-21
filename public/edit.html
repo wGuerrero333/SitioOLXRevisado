@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 15px 30px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 25px 0;
+      color: #2563eb;
+      font-size: 28px;
+    }
+
+    .card {
+      background: white;
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: 600;
+      color: #374151;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: #2563eb;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .preview-img {
+      max-width: 200px;
+      margin-top: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    a.back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #374151;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>Editar Información</header>
+
+<h1 id="title">Editar</h1>
+
+<div class="card">
+  <form id="editForm" enctype="multipart/form-data"></form>
+
+  <a id="backBtn" href="/" class="back-btn">⬅ Volver</a>
+</div>
+
+<script>
+// Leer parámetros
+function getParams() {
+  const params = new URLSearchParams(window.location.search);
+  return { type: params.get("type"), id: params.get("id") };
+}
+
+// Renderizar un input
+function fieldHTML(label, id, value, type="text") {
+  return `
+    <label for="${id}">${label}</label>
+    <input type="${type}" id="${id}" name="${id}" value="${value ?? ''}">
+  `;
+}
+
+// Renderizar textarea
+function textareaHTML(label, id, value) {
+  return `
+    <label for="${id}">${label}</label>
+    <textarea id="${id}" name="${id}" rows="3">${value ?? ''}</textarea>
+  `;
+}
+
+// CREAR FORMULARIO SEGÚN TYPE
+(async () => {
+  const { type, id } = getParams();
+  const form = document.getElementById("editForm");
+
+  if (!type || !id) {
+    form.innerHTML = "<p>Error: Parámetros inválidos</p>";
+    return;
+  }
+
+  document.getElementById("backBtn").href = `/detail?type=${type}&id=${id}`;
+
+  let data = {};
+  let res;
+
+  // 1️⃣ Obtener datos según type
+  if (type === "suscripcion") {
+    res = await fetch(`/api/suscripciones/${id}`);
+    data = await res.json();
+
+    form.innerHTML = `
+      ${fieldHTML("Nombre", "nombre", data.nombre)}
+      ${fieldHTML("Email", "email", data.email, "email")}
+      ${textareaHTML("Mensaje", "mensaje", data.mensaje)}
+
+      <label for="role">Rol</label>
+      <select id="role" name="role">
+        <option value="usuario" ${data.role === "usuario" ? "selected" : ""}>Usuario</option>
+        <option value="miembro" ${data.role === "miembro" ? "selected" : ""}>Miembro</option>
+        <option value="administrador" ${data.role === "administrador" ? "selected" : ""}>Administrador</option>
+      </select>
+
+      <button type="submit">Guardar Cambios</button>
+    `;
+  }
+
+  else if (type === "venta") {
+    res = await fetch(`/api/ventas/${id}`);
+    data = await res.json();
+
+    form.innerHTML = `
+      ${fieldHTML("Título", "titulo", data.titulo)}
+      ${textareaHTML("Descripción", "descripcion", data.descripcion)}
+      ${fieldHTML("Precio", "precio", data.precio, "number")}
+
+      <label for="categoria">Categoría</label>
+      <select id="categoria" name="categoria">
+        <option value="electronica" ${data.categoria==="electronica"?"selected":""}>Electrónica</option>
+        <option value="ropa" ${data.categoria==="ropa"?"selected":""}>Ropa</option>
+        <option value="muebles" ${data.categoria==="muebles"?"selected":""}>Muebles</option>
+        <option value="libros" ${data.categoria==="libros"?"selected":""}>Libros</option>
+        <option value="otros" ${data.categoria==="otros"?"selected":""}>Otros</option>
+      </select>
+
+      ${textareaHTML("Ubicación", "ubicacion", data.ubicacion)}
+
+      <label>Imagen actual</label>
+      ${data.imagen ? `<img src="${data.imagen}" class="preview-img">` : "Sin imagen"}
+
+      <label>Nueva imagen</label>
+      <input type="file" id="imagen" name="imagen" accept="image/*">
+
+      <button type="submit">Guardar Cambios</button>
+    `;
+  }
+
+  // 2️⃣ ENVIAR CAMBIOS
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    let result;
+
+    if (type === "suscripcion") {
+      const dataSend = {
+        nombre: document.getElementById("nombre").value,
+        email: document.getElementById("email").value,
+        mensaje: document.getElementById("mensaje").value,
+        role: document.getElementById("role").value,
+      };
+
+      result = await fetch(`/api/suscripciones/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataSend)
+      });
+    }
+// API VENTAS NO SE HA PRORAMADO
+    else if (type === "venta") {
+      const formData = new FormData(form);
+      result = await fetch(`/api/ventas/${id}`, {
+        method: "PUT",
+        body: formData
+      });
+    }
+
+    if (result.ok) {
+      alert("Actualizado correctamente ✔️");
+      window.location.href = `/detail?type=${type}&id=${id}`;
+    } else {
+      alert("Error al guardar edicion");
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

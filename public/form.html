@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+<!-- estilo del header y footer -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- estilo del solo form -->
+      <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+    </style>
+
+</head>
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <a href="/" class="logo">GRUPO PS</a>
+            <!-- <nav class="nav">
+                <a href="#browse">Explorar</a>
+                <a href="#categories">Categorías</a>
+                <a href="#how-it-works">Cómo Funciona</a>
+            </nav> -->
+            <div class="header-actions">
+                <a href="formVenta.html" class="btn btn-outline">+ Vender Artículo</a>
+                <a href="form.html" class="btn btn-ghost">👤 Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<body>
+    <h1>Formulario de subscription</h1>
+  <form id="suscripcionForm" class="form">
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="mensaje">Mensaje:</label>
+  <textarea id="mensaje" name="mensaje" rows="2" ></textarea>
+
+  <label for="role">Rol:</label>
+<select id="role" name="role" required>
+  <option value="usuario" selected>Usuario</option>
+  <option value="miembro">Miembro</option>
+  <option value="administrador">Administrador</option>
+</select>
+
+
+
+  <input type="submit" value="Enviar">
+  
+</form>
+
+<script>
+document.getElementById('suscripcionForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  // trim() eliminar los espacios en blanco del inicio y del final de una cadena de texto
+  const data = {
+    nombre: document.getElementById('nombre').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    mensaje: document.getElementById('mensaje').value.trim(),
+        role: document.getElementById('role').value // se agrego role
+  };
+  // en vez de hacer en el form action="/api/suscripciones" method="POST" hacemos fetch 
+  try {
+    const res = await fetch('/api/suscripciones', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, // con estos headres no se podria subir img
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    if (res.ok) {
+      // redirigir a la página de detalle
+      
+      window.location.href = `/detail?type=suscripcion&id=${json.id}`;
+    } else {
+      alert(json.error || 'Error al enviar');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Error de red');
+  }
+});
+</script>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GRUPO PS</h3>
+                    <p>El mercado confiable para comprar, vender e intercambiar artículos en tu comunidad local.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Explorar Artículos</a></li>
+                        <li><a href="#">Categorías</a></li>
+                        <li><a href="#">Cómo Funciona</a></li>
+                        <li><a href="#">Consejos de Seguridad</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Contáctanos</a></li>
+                        <li><a href="#">Reportar un Problema</a></li>
+                        <li><a href="#">Directrices de la Comunidad</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Mantente Actualizado</h4>
+                    <p>Recibe notificaciones sobre grandes ofertas y nuevos artículos en tu área.</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Tu email">
+                        <button>📧</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 GRUPO PS. Todos los derechos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos de Servicio</a>
+                    <a href="#">Política de Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
