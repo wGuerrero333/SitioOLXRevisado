@@ -100,7 +100,7 @@
 </div>
 
 <script>
-// Leer parámetros
+// Leer parámetros enviados desde URL detail.html
 function getParams() {
   const params = new URLSearchParams(window.location.search);
   return { type: params.get("type"), id: params.get("id") };
@@ -132,12 +132,13 @@ function textareaHTML(label, id, value) {
     return;
   }
 
+  //  1️⃣ OBTENER DATOS EXISTENTES 
   document.getElementById("backBtn").href = `/detail?type=${type}&id=${id}`;
 
   let data = {};
   let res;
 
-  // 1️⃣ Obtener datos según type
+  // OBteniendo los  datos según type
   if (type === "suscripcion") {
     res = await fetch(`/api/suscripciones/${id}`);
     data = await res.json();

@@ -41,19 +41,26 @@ const postVentas = async (req, res) => {
   }
 };
 
-const updateVenta = async (req, res) => {
+const updateVenta  = async (req, res) => {
   try {
     const { id } = req.params;
     const { titulo, descripcion, precio, categoria, ubicacion } = req.body;
 
-    const [result] = await pool.query(
-      "UPDATE ventas SET titulo=?, descripcion=?, precio=?, categoria=?, ubicacion=? WHERE id=?",
-      [titulo, descripcion, precio, categoria, ubicacion, id]
+    // obtener la imagen actual si no se sube nueva
+    const [rows] = await pool.query("SELECT imagen FROM ventas WHERE id = ?", [id]);
+    const imagenActual = rows[0].imagen;
+
+    const nuevaImagen = req.file ? `/uploads/${req.file.filename}` : imagenActual;
+
+    await pool.query(
+      "UPDATE ventas SET titulo=?, descripcion=?, precio=?, categoria=?, ubicacion=?, imagen=? WHERE id=?",
+      [titulo, descripcion, precio, categoria, ubicacion, nuevaImagen, id]
     );
 
-    res.json({ updated: result.affectedRows });
-  } catch (error) {
-    res.status(500).json({ error: "Error al editar venta" });
+    res.json({ message: "Actualizado correctamente", imagen: nuevaImagen });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error al actualizar" });
   }
 };
 
@@ -66,7 +73,6 @@ const deleteVenta = async (req, res) => {
     res.status(500).json({ error: "Error al eliminar venta" });
   }
 };
-
 module.exports = {
   getVentas,
   getVenta,
