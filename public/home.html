@@ -31,13 +31,64 @@
             <div class="container">
                 <h1>Compra, Vende e <span class="highlight">Intercambia</span> Cualquier Cosa</h1>
                 <p>Únete a miles de personas comprando, vendiendo e intercambiando artículos en tu comunidad local. Desde electrónicos hasta muebles, encuentra grandes ofertas o intercambia por lo que necesitas.</p>
+             
+<!-- Categories Section -->
+        <section class="section section-muted" id="categories">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Explorar por Categoría</h2>
+                    <p class="section-description">Descubre artículos en las categorías que más te interesan</p>
+                </div>
                 
+                <div class="categories-grid">
+                    <a id="category-card-id" class="category-card">
+                        <div class="category-icon" style="background-color: #dbeafe; color: #2563eb;">📱</div>
+                        <div class="category-info">
+                            <h3>Electronica</h3>
+                            
+                        </div>
+                    </a>
+                    <a class="category-card">
+                        <div class="category-icon" style="background-color: #dcfce7; color: #16a34a;">🏠</div>
+                        <div class="category-info">
+                            <h3>Muebles</h3>
+                        
+                        </div>
+                    </a>
+                  
+                    <a class="category-card">
+                        <div class="category-icon" style="background-color: #f3e8ff; color: #9333ea;">👕</div>
+                        <div class="category-info">
+                            <h3>Ropa</h3>
+                            
+                        </div>
+                    </a>
+                    <a  class="category-card">
+                        <div class="category-icon" style="background-color: #fef3c7; color: #d97706;">📚</div>
+                        <div class="category-info">
+                            <h3>Libros</h3>
+                            
+                        </div>
+                    </a>
+                    <a  class="category-card">
+                        <div class="category-icon" style="background-color: #e0e7ff; color: #4f46e5;">🎮 🔧 📷</div>
+                        <div class="category-info">
+                            <h3>Otros</h3>
+                      
+                        </div>
+                    </a>
+                                     
+                </div>
+            </div>
+        </section>
+<!-- search bar -->
+           
                 <div class="search-bar">
                     <input type="text"  id="search-bar"  class="search-input" placeholder="¿Qué estás buscando?">
                   
                 </div>
 
-
+            <!-- Products Section -->
 
 <section id="ventas-container" class="grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:20px;">
 </section>
@@ -46,8 +97,8 @@
 
                 
                 <div class="hero-actions">
-                    <a href="ventas.html" class="btn btn-primary">Comenzar a Explorar →</a>
-                    <a href="formVenta.html" class="btn btn-outline">Publicar tu Artículo</a>
+                    <a href="ventas.html" class="btn btn-primary">Explorar todos los productos→</a>
+                    <a href="formVenta.html" class="btn btn-outline">Publica tu Artículo</a>
                 </div>
                 
                 <div class="hero-features">
@@ -70,59 +121,7 @@
             </div>
         </section>
 
-        <!-- Categories Section -->
-        <section class="section section-muted" id="categories">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Explorar por Categoría</h2>
-                    <p class="section-description">Descubre artículos en las categorías que más te interesan</p>
-                </div>
-                
-                <div class="categories-grid">
-                    <a id="category-card-id" class="category-card">
-                        <div class="category-icon" style="background-color: #dbeafe; color: #2563eb;">📱</div>
-                        <div class="category-info">
-                            <h3>Electrónicos</h3>
-                            <p class="category-count">2,342 artículos</p>
-                        </div>
-                    </a>
-                    <a class="category-card">
-                        <div class="category-icon" style="background-color: #dcfce7; color: #16a34a;">🏠</div>
-                        <div class="category-info">
-                            <h3>Muebles</h3>
-                            <p class="category-count">1,890 artículos</p>
-                        </div>
-                    </a>
-                  
-                    <a class="category-card">
-                        <div class="category-icon" style="background-color: #f3e8ff; color: #9333ea;">👕</div>
-                        <div class="category-info">
-                            <h3>Ropa</h3>
-                            <p class="category-count">3,124 artículos</p>
-                        </div>
-                    </a>
-                    <a  class="category-card">
-                        <div class="category-icon" style="background-color: #fef3c7; color: #d97706;">📚</div>
-                        <div class="category-info">
-                            <h3>Libros</h3>
-                            <p class="category-count">1,456 artículos</p>
-                        </div>
-                    </a>
-                    <a href="#" class="category-card">
-                        <div class="category-icon" style="background-color: #e0e7ff; color: #4f46e5;">🎮 🔧 📷</div>
-                        <div class="category-info">
-                            <h3>Otros</h3>
-                            <p class="category-count">987 artículos</p>
-                        </div>
-                    </a>
-                    
-                 
-                </div>
-            </div>
-        </section>
-
- 
-        <!-- How It Works -->
+                <!-- How It Works -->
         <section class="section" id="how-it-works">
             <div class="container">
                 <div class="section-header">
@@ -203,16 +202,23 @@
         </div>
     </footer>
 
+
 <script>
+document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('click', async () => {
+        const categoria = card.querySelector('h3').innerText.toLowerCase();
 
-// Seleccionar todos los elementos de categoría
-const categorias = document.querySelectorAll('#category-card-id');
+        const res = await fetch('/api/ventas');
+        const ventas = await res.json();
 
-categorias.forEach(card => {
-    card.addEventListener('click', () => {
-        console.log('Categoría clickeada:', card.querySelector('h3').innerText);
+        const filtradas = ventas.filter(v => v.categoria.toLowerCase() === categoria);
+// el scope de esta funcion permite llamrla desde aqui
+        renderVentas(filtradas);
     });
 });
+</script>
+
+ 
 </script>
 
 

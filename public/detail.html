@@ -149,6 +149,8 @@ s
   </footer>
 
   <script>
+
+    // función para obtener los parámetros type e id de la URL
     async function getParams() {
       const params = new URLSearchParams(window.location.search);
       return { type: params.get('type'), id: params.get('id') };

@@ -47,3 +47,11 @@ module.exports = pool;
 //   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 // );
 
+// se crea la table email solo para la casilla email;
+// CREATE TABLE email (
+//   id INT AUTO_INCREMENT PRIMARY KEY,
+
+//   email VARCHAR(200) NOT NULL);
+
+// insert INTO email (email) VALUES ('prueba');
+
