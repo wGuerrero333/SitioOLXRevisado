@@ -27,5 +27,7 @@ app.get('/detail', (req, res) => {
 
 app.use("/api/ventas", require("./routes/ventas.routes"));
 app.use("/api/suscripciones", require("./routes/suscripciones.routes"));
+// una ruta mas para los correo solamente
+app.use("/api/correo", require("./routes/correo.routes"))
 
 app.listen(3000, () => console.log("Servidor en http://localhost:3000"));

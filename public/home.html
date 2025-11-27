@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GRUPO PS - Compra, Vende e Intercambia Cualquier Cosa</title>
-   <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
@@ -13,7 +15,7 @@
             <div class="header-content">
                 <a href="/" class="logo">GRUPO PS</a>
                 <nav class="nav">
-                    
+
                     <a href="#categories">Categorías</a>
                     <a href="#how-it-works">Cómo Funciona</a>
                 </nav>
@@ -30,77 +32,81 @@
         <section class="hero">
             <div class="container">
                 <h1>Compra, Vende e <span class="highlight">Intercambia</span> Cualquier Cosa</h1>
-                <p>Únete a miles de personas comprando, vendiendo e intercambiando artículos en tu comunidad local. Desde electrónicos hasta muebles, encuentra grandes ofertas o intercambia por lo que necesitas.</p>
-             
-<!-- Categories Section -->
-        <section class="section section-muted" id="categories">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Explorar por Categoría</h2>
-                    <p class="section-description">Descubre artículos en las categorías que más te interesan</p>
-                </div>
-                
-                <div class="categories-grid">
-                    <a id="category-card-id" class="category-card">
-                        <div class="category-icon" style="background-color: #dbeafe; color: #2563eb;">📱</div>
-                        <div class="category-info">
-                            <h3>Electronica</h3>
-                            
+                <p>Únete a miles de personas comprando, vendiendo e intercambiando artículos en tu comunidad local.
+                    Desde electrónicos hasta muebles, encuentra grandes ofertas o intercambia por lo que necesitas.</p>
+
+                <!-- Categories Section -->
+                <section class="section section-muted" id="categories">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">Explorar por Categoría</h2>
+                            <p class="section-description">Descubre artículos en las categorías que más te interesan</p>
                         </div>
-                    </a>
-                    <a class="category-card">
-                        <div class="category-icon" style="background-color: #dcfce7; color: #16a34a;">🏠</div>
-                        <div class="category-info">
-                            <h3>Muebles</h3>
-                        
+
+                        <div class="categories-grid">
+                            <a id="category-card-id" class="category-card">
+                                <div class="category-icon" style="background-color: #dbeafe; color: #2563eb;">📱</div>
+                                <div class="category-info">
+                                    <h3>Electronica</h3>
+
+                                </div>
+                            </a>
+                            <a class="category-card">
+                                <div class="category-icon" style="background-color: #dcfce7; color: #16a34a;">🏠</div>
+                                <div class="category-info">
+                                    <h3>Muebles</h3>
+
+                                </div>
+                            </a>
+
+                            <a class="category-card">
+                                <div class="category-icon" style="background-color: #f3e8ff; color: #9333ea;">👕</div>
+                                <div class="category-info">
+                                    <h3>Ropa</h3>
+
+                                </div>
+                            </a>
+                            <a class="category-card">
+                                <div class="category-icon" style="background-color: #fef3c7; color: #d97706;">📚</div>
+                                <div class="category-info">
+                                    <h3>Libros</h3>
+
+                                </div>
+                            </a>
+                            <a class="category-card">
+                                <div class="category-icon" style="background-color: #e0e7ff; color: #4f46e5;">🎮 🔧 📷
+                                </div>
+                                <div class="category-info">
+                                    <h3>Otros</h3>
+
+                                </div>
+                            </a>
+
                         </div>
-                    </a>
-                  
-                    <a class="category-card">
-                        <div class="category-icon" style="background-color: #f3e8ff; color: #9333ea;">👕</div>
-                        <div class="category-info">
-                            <h3>Ropa</h3>
-                            
-                        </div>
-                    </a>
-                    <a  class="category-card">
-                        <div class="category-icon" style="background-color: #fef3c7; color: #d97706;">📚</div>
-                        <div class="category-info">
-                            <h3>Libros</h3>
-                            
-                        </div>
-                    </a>
-                    <a  class="category-card">
-                        <div class="category-icon" style="background-color: #e0e7ff; color: #4f46e5;">🎮 🔧 📷</div>
-                        <div class="category-info">
-                            <h3>Otros</h3>
-                      
-                        </div>
-                    </a>
-                                     
-                </div>
-            </div>
-        </section>
-<!-- search bar -->
-           
+                    </div>
+                </section>
+                <!-- search bar -->
+
                 <div class="search-bar">
-                    <input type="text"  id="search-bar"  class="search-input" placeholder="¿Qué estás buscando?">
-                  
+                    <input type="text" id="search-bar" class="search-input" placeholder="¿Qué estás buscando?">
+
                 </div>
 
-            <!-- Products Section -->
+                <!-- Products Section -->
 
-<section id="ventas-container" class="grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:20px;">
-</section>
-<!-- este div con display:none se mantiene oculto hasta que en js se le da display: block -->
-<div id="no-data" style="text-align:center; color:#777; display:none;">No se encontraron resultados.</div>
+                <section id="ventas-container" class="grid"
+                    style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:20px;">
+                </section>
+                <!-- este div con display:none se mantiene oculto hasta que en js se le da display: block -->
+                <div id="no-data" style="text-align:center; color:#777; display:none;">No se encontraron resultados.
+                </div>
 
-                
+
                 <div class="hero-actions">
                     <a href="ventas.html" class="btn btn-primary">Explorar todos los productos→</a>
                     <a href="formVenta.html" class="btn btn-outline">Publica tu Artículo</a>
                 </div>
-                
+
                 <div class="hero-features">
                     <div class="feature">
                         <div class="feature-icon">👥</div>
@@ -121,31 +127,34 @@
             </div>
         </section>
 
-                <!-- How It Works -->
+        <!-- How It Works -->
         <section class="section" id="how-it-works">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">GRUPO PS</h2>
-                    <p class="section-description">Comenzar es simple. Sigue estos sencillos pasos para comprar, vender o intercambiar.</p>
+                    <p class="section-description">Comenzar es simple. Sigue estos sencillos pasos para comprar, vender
+                        o intercambiar.</p>
                 </div>
-                
+
                 <div class="steps-grid">
                     <div class="step">
                         <div class="step-number">1</div>
                         <h3>Publica tu Artículo</h3>
                         <p>Toma fotos, escribe una descripción y establece tu precio o preferencias de intercambio</p>
                     </div>
-                    
+
                     <div class="step">
                         <div class="step-number">2</div>
                         <h3>Conecta con Compradores</h3>
-                        <p>Los compradores interesados te enviarán mensajes directamente a través de nuestra plataforma segura</p>
+                        <p>Los compradores interesados te enviarán mensajes directamente a través de nuestra plataforma
+                            segura</p>
                     </div>
-                    
+
                     <div class="step">
                         <div class="step-number">3</div>
                         <h3>Completa el Trato</h3>
-                        <p>Reúnete de forma segura en persona o usa nuestras opciones de envío para completar tu transacción</p>
+                        <p>Reúnete de forma segura en persona o usa nuestras opciones de envío para completar tu
+                            transacción</p>
                     </div>
                 </div>
             </div>
@@ -160,7 +169,7 @@
                     <h3>GRUPO PS</h3>
                     <p>El mercado confiable para comprar, vender e intercambiar artículos en tu comunidad local.</p>
                 </div>
-                
+
                 <div class="footer-section">
                     <h4>Enlaces Rápidos</h4>
                     <ul class="footer-links">
@@ -170,7 +179,7 @@
                         <li><a href="#">Consejos de Seguridad</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h4>Soporte</h4>
                     <ul class="footer-links">
@@ -180,17 +189,18 @@
                         <li><a href="#">Directrices de la Comunidad</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h4>Mantente Actualizado</h4>
                     <p>Recibe notificaciones sobre grandes ofertas y nuevos artículos en tu área.</p>
                     <div class="newsletter">
-                        <input type="email" placeholder="Tu email">
-                        <button>📧</button>
+                        <label for="email">Email:</label>
+                        <input type="email" required id="correo" placeholder="Tu email">
+                        <button id="correoBtn">📧</button>
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2024 GRUPO PS. Todos los derechos reservados.</p>
                 <div class="footer-bottom-links">
@@ -201,57 +211,106 @@
             </div>
         </div>
     </footer>
+    <!-- swett alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById("correoBtn").addEventListener("click", async () => {
+            const correoInput = document.getElementById("correo");
+            // leer el valor del input quitandole espacio en blanco con trim()
+            const correo = correoInput.value.trim();
 
 
-<script>
-document.querySelectorAll('.category-card').forEach(card => {
-    card.addEventListener('click', async () => {
-        const categoria = card.querySelector('h3').innerText.toLowerCase();
-
-        const res = await fetch('/api/ventas');
-        const ventas = await res.json();
-
-        const filtradas = ventas.filter(v => v.categoria.toLowerCase() === categoria);
-// el scope de esta funcion permite llamrla desde aqui
-        renderVentas(filtradas);
-    });
-});
-</script>
-
- 
-</script>
+            function validarEmail(email) {
+                const regex = /\S+@\S+/;
+                return regex.test(email);
+            }
 
 
-<script>
-    async function obtenerVentas() {
-  const res = await fetch('/api/ventas');
-  const data = await res.json();
-  return data;
-}
+            if (!correo || !validarEmail(correo)) {
+                Swal.fire({
+                    title: " e- mail Invalido ingresalo de nuevo ",
+                    icon: "failure",
+                    draggable: true
+                });
+                return;
+            }
 
-function renderVentas(ventas) {
-  const cont = document.getElementById('ventas-container');
-  const noData = document.getElementById('no-data');
-  cont.innerHTML = '';
-// si no hay ventas muestra el mensaje de no data
-  if (!ventas || ventas.length === 0) {
-    // Mostrar mensaje de no hay datos 
-    noData.style.display = 'block';
-    return;
-  }
+            try {
+                const response = await fetch("/api/correo", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ correo })
+                });
 
-  noData.style.display = 'none';
+                if (response.ok) {
+                    Swal.fire({
+                        title: "Gracias por inscribirte!",
+                        icon: "success",
+                        draggable: true
+                    });
+                    correoInput.value = "";
+                } else {
+                    alert("Hubo un error al suscribirte. Por favor intenta de nuevo.");
+                }
+            } catch (error) {
+                console.error("Error al enviar el correo:", error);
+                alert("Error de red. Por favor intenta de nuevo.");
+            }
+        });
 
-  ventas.forEach(v => {
-    const card = document.createElement('div');
-    card.classList.add('card');
-    card.style.background = '#fff';
-    card.style.padding = '15px';
-    card.style.borderRadius = '10px';
-    card.style.boxShadow = '0 2px 6px rgba(0,0,0,0.1)';
+    </script>
 
-    const imgSrc = v.imagen ? v.imagen : "https://placehold.co/600x400?text=Sin+Imagen";
-    card.innerHTML = `
+    <script>
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', async () => {
+                const categoria = card.querySelector('h3').innerText.toLowerCase();
+
+                const res = await fetch('/api/ventas');
+                const ventas = await res.json();
+
+                const filtradas = ventas.filter(v => v.categoria.toLowerCase() === categoria);
+                // el scope de esta funcion permite llamrla desde aqui
+                renderVentas(filtradas);
+            });
+        });
+    </script>
+
+
+    </script>
+
+
+    <script>
+        async function obtenerVentas() {
+            const res = await fetch('/api/ventas');
+            const data = await res.json();
+            return data;
+        }
+
+        function renderVentas(ventas) {
+            const cont = document.getElementById('ventas-container');
+            const noData = document.getElementById('no-data');
+            cont.innerHTML = '';
+            // si no hay ventas muestra el mensaje de no data
+            if (!ventas || ventas.length === 0) {
+                // Mostrar mensaje de no hay datos 
+                noData.style.display = 'block';
+                return;
+            }
+
+            noData.style.display = 'none';
+
+            ventas.forEach(v => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.style.background = '#fff';
+                card.style.padding = '15px';
+                card.style.borderRadius = '10px';
+                card.style.boxShadow = '0 2px 6px rgba(0,0,0,0.1)';
+
+                const imgSrc = v.imagen ? v.imagen : "https://placehold.co/600x400?text=Sin+Imagen";
+                card.innerHTML = `
       <img src="${imgSrc}" alt="${v.titulo}" style="width:100%; height:180px; object-fit:cover; border-radius:8px;">
       <h3 style="margin-top:10px;">${v.titulo}</h3>
       <p style="color:#555;">${v.descripcion || ''}</p>
@@ -259,36 +318,37 @@ function renderVentas(ventas) {
       <p style="color:#777;">${v.categoria} - ${v.ubicacion}</p>
       <a href="/detail?type=venta&id=${v.id}" style="text-decoration:none; color:white; background:#2563eb; padding:6px 10px; border-radius:6px;">Ver detalle</a>
     `;
-    cont.appendChild(card);
-  });
-}
+                cont.appendChild(card);
+            });
+        }
 
-async function inicializarBusqueda() {
-  const searchInput = document.getElementById('search-bar');
-  let ventas = [];
-// cargar todas las ventas inicialmente
-  try {
-    ventas = await obtenerVentas();
-    renderVentas(ventas);
-  } catch (err) {
-    console.error('Error cargando ventas:', err);
-  }
-// filtrar ventas al escribir en el buscador
-  searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
-    const filtradas = ventas.filter(v => 
-      v.titulo.toLowerCase().includes(query) ||
-      v.descripcion.toLowerCase().includes(query) ||
-      v.categoria.toLowerCase().includes(query) ||
-      (v.ubicacion && v.ubicacion.toLowerCase().includes(query))
-    );
-    renderVentas(filtradas);
-  });
-}
-// cuando se carga al DOM SE INICIA LA BUSQUEDA
-document.addEventListener('DOMContentLoaded', inicializarBusqueda);
-</script>
+        async function inicializarBusqueda() {
+            const searchInput = document.getElementById('search-bar');
+            let ventas = [];
+            // cargar todas las ventas inicialmente
+            try {
+                ventas = await obtenerVentas();
+                renderVentas(ventas);
+            } catch (err) {
+                console.error('Error cargando ventas:', err);
+            }
+            // filtrar ventas al escribir en el buscador
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const filtradas = ventas.filter(v =>
+                    v.titulo.toLowerCase().includes(query) ||
+                    v.descripcion.toLowerCase().includes(query) ||
+                    v.categoria.toLowerCase().includes(query) ||
+                    (v.ubicacion && v.ubicacion.toLowerCase().includes(query))
+                );
+                renderVentas(filtradas);
+            });
+        }
+        // cuando se carga al DOM SE INICIA LA BUSQUEDA
+        document.addEventListener('DOMContentLoaded', inicializarBusqueda);
+    </script>
 
-   
+
 </body>
+
 </html>
