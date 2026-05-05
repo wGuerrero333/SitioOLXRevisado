@@ -43,7 +43,8 @@ module.exports = pool;
 //   descripcion TEXT,
 //   precio DECIMAL(12,2),
 //   categoria VARCHAR(100),
-//   ubicacion VARCHAR(255),  
+//   ubicacion VARCHAR(255),
+      // imagen VARCHAR(255),  
 //   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 // );
 
