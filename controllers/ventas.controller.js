@@ -48,6 +48,7 @@ const updateVenta  = async (req, res) => {
 
     // obtener la imagen actual si no se sube nueva
     const [rows] = await pool.query("SELECT imagen FROM ventas WHERE id = ?", [id]);
+    if (rows.length === 0) return res.status(404).json({ error: 'Venta no encontrada' });
     const imagenActual = rows[0].imagen;
 
     const nuevaImagen = req.file ? `/uploads/${req.file.filename}` : imagenActual;

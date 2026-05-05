@@ -14,6 +14,10 @@ const postCorreo = async (req,res) => {
     try {
         const { correo } = req.body;
 
+        if (!correo) {
+          return res.status(400).json({ error: 'El campo correo es requerido' });
+        }
+
         const [result] = await pool.query(
             "INSERT INTO correo (correo) VALUES (?)",
             [correo]

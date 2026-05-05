@@ -26,6 +26,10 @@ const postSuscripcion = async (req, res) => {
   try {
     const { nombre, email, mensaje, role } = req.body;
 
+    if (!nombre || !email || !mensaje) {
+      return res.status(400).json({ error: 'Faltan campos requeridos: nombre, email, mensaje' });
+    }
+
     const rolesValidos = ["administrador", "miembro", "usuario"];
     const rolFinal = rolesValidos.includes(role) ? role : "usuario";
 
