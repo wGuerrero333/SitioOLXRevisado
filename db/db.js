@@ -48,6 +48,11 @@ module.exports = pool;
 //   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 // );
 
+// INSERT INTO ventas (titulo, descripcion, precio, categoria, ubicacion) VALUES
+// ('Bicicleta de montaña', 'Bicicleta de montaña en buen estado, ideal para senderos y caminos difíciles.', 150.00, 'Deportes', 'Madrid'),
+// ('Sofá de cuero', 'Sofá de cuero marrón en excelente estado, cómodo y elegante.', 300.00, 'Muebles', 'Barcelona'),
+// ('Laptop Dell XPS 13', 'Laptop Dell XPS 13 con procesador Intel i7, 16GB RAM y 512GB SSD.', 1200.00, 'Electrónica', 'Valencia');
+
 // se crea la table email solo para la casilla email;
 // CREATE TABLE correo (
 //   id INT AUTO_INCREMENT PRIMARY KEY,
